@@ -1,1 +1,1 @@
-# jsx-atom-feed
+# atom-feed-builder
