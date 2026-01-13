@@ -1,0 +1,11 @@
+# Refer for explanation to following link:
+# https://lefthook.dev/configuration/
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*.{ts,json}"
+      run: deno fmt --check
+    lint:
+      glob: "*.{ts,json}"
+      run: deno lint
