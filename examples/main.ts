@@ -1,10 +1,16 @@
-import { buildXmlRoot, c } from "../src/mod.ts";
+import { c, xmlRoot } from "../src/mod.ts";
 
 if (import.meta.main) {
-  const generated = buildXmlRoot([c("feed", {
+  const xml = xmlRoot([c("feed", {
     xmlns: "http://www.w3.org/2005/Atom",
+    "xml:lang": "ja",
   }, [
     c("title", { value: "My Blog" }),
+    c("link", {
+      href: "https://example.com/atom.xml",
+      rel: "self",
+      type: "application/atom+xml",
+    }),
     c("author", {}, [
       c("name", { value: "john doe" }),
     ]),
@@ -25,5 +31,7 @@ if (import.meta.main) {
       c("summary", { value: "This is another post." }),
     ]),
   ])]);
-  console.log(generated);
+
+  const data = new TextEncoder().encode(xml);
+  await Deno.writeFile("rss.xml", data);
 }
