@@ -28,12 +28,12 @@ interface NodeDefinition {
 }
 
 enum NodeKind {
-  DECLARATION = "declaration",
-  ATOM = "atom",
+  Declaration = "declaration",
+  Atom = "atom",
 }
 
 interface DeclarationNode {
-  kind: NodeKind.DECLARATION;
+  kind: NodeKind.Declaration;
   name: "xml";
   params: {
     version: "1.0";
@@ -44,7 +44,7 @@ interface DeclarationNode {
 type NodeName = keyof NodeDefinition;
 
 interface AtomNode {
-  kind: NodeKind.ATOM;
+  kind: NodeKind.Atom;
   name: NodeName;
   params: NodeDefinition[NodeName];
   children: AtomNode[];
@@ -62,7 +62,7 @@ export const xmlRoot = (nodes: AtomNode[]): string => {
 };
 
 export const compose: ComposeNode = (name, params, children) => ({
-  kind: NodeKind.ATOM,
+  kind: NodeKind.Atom,
   name,
   params,
   children: children ?? [],
@@ -70,7 +70,7 @@ export const compose: ComposeNode = (name, params, children) => ({
 
 const stringifyRootNode = (nodes: AtomNode[], indentLevel: number): string => {
   const root: DeclarationNode = {
-    kind: NodeKind.DECLARATION,
+    kind: NodeKind.Declaration,
     name: "xml",
     params: {
       version: "1.0",

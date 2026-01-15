@@ -3,6 +3,7 @@
     "dev:examples": "deno run --allow-write examples/main.ts"
   },
   "imports": {
-    "@std/assert": "jsr:@std/assert@1"
+    "@std/assert": "jsr:@std/assert@1",
+    "@std/testing/snapshot": "jsr:@std/testing/snapshot"
   }
 }
