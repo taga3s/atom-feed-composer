@@ -1,6 +1,12 @@
+import { escape } from "@std/html/entities";
+
 interface NodeCommonParams {
   "xml:lang"?: string;
   "xml:base"?: string;
+}
+
+interface NodeTextConstructCommonParams {
+  type?: "text" | "html" | "xhtml";
 }
 
 interface NodeDefinition {
@@ -20,8 +26,8 @@ interface NodeDefinition {
   };
   "entry": Record<PropertyKey, never>;
   "content": {
-    value?: string;
-    type?: string;
+    value: string;
+    type?: string; //TODO: should be "text" | "html" | "xhtml" | atomMediaType;
     src?: string;
   };
   // Metadata Elements (RFC 4287 Section 4.2)
@@ -46,7 +52,7 @@ interface NodeDefinition {
   "link": {
     href: string;
     rel?: string;
-    type?: string;
+    type?: string; //TODO: should be atomMediaType;
     hreflang?: string;
     title?: string;
     length?: string;
@@ -59,21 +65,17 @@ interface NodeDefinition {
   };
   "rights": {
     value: string;
-    type?: "text" | "html" | "xhtml";
-  };
+  } & NodeTextConstructCommonParams;
   "source": Record<PropertyKey, never>;
   "subtitle": {
     value: string;
-    type?: "text" | "html" | "xhtml";
-  };
+  } & NodeTextConstructCommonParams;
   "summary": {
     value: string;
-    type?: "text" | "html" | "xhtml";
-  };
+  } & NodeTextConstructCommonParams;
   "title": {
     value: string;
-    type?: "text" | "html" | "xhtml";
-  };
+  } & NodeTextConstructCommonParams;
   "updated": {
     value: string;
   };
@@ -94,8 +96,7 @@ interface DeclarationNode {
 }
 
 type NodeName = keyof NodeDefinition;
-
-interface AtomNode {
+export interface AtomNode {
   kind: NodeKind.Atom;
   name: NodeName;
   params: NodeDefinition[NodeName] & NodeCommonParams;
@@ -141,12 +142,16 @@ const stringifyNode = (node: AtomNode, indentLevel: number): string => {
     ? Object.entries(node.params)
       .filter(([key]) => key !== "value")
       .reduce((acc, [key, value]) => {
-        return `${acc} ${key}="${value}"`;
+        return `${acc} ${key}="${escape(value)}"`;
       }, "")
     : "";
 
-  if (node.params && "value" in node.params) {
-    return `${indent}<${node.name}${attributes}>${node.params.value}</${node.name}>`;
+  if ("value" in node.params && node.params.value !== undefined) {
+    // Should not escape if type="xhtml" present, otherwise escape
+    const shouldEscape =
+      !("type" in node.params && node.params.type === "xhtml");
+    const value = shouldEscape ? escape(node.params.value) : node.params.value;
+    return `${indent}<${node.name}${attributes}>${value}</${node.name}>`;
   }
 
   if (node.children.length === 0) {

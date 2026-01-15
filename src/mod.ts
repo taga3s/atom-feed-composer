@@ -1,2 +1,2 @@
-import { compose, xmlRoot } from "./lib.ts";
-export { compose as c, xmlRoot };
+import { type AtomNode, compose, xmlRoot } from "./lib.ts";
+export { type AtomNode, compose as c, xmlRoot };

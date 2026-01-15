@@ -1,9 +1,7 @@
 import { assertSnapshot } from "@std/testing/snapshot";
 import { c, xmlRoot } from "./mod.ts";
 
-const fixture = (): {
-  xml: string;
-} => {
+const fixture1 = (): string => {
   const xml = xmlRoot([c("feed", {
     xmlns: "http://www.w3.org/2005/Atom",
     "xml:lang": "ja",
@@ -34,13 +32,25 @@ const fixture = (): {
       c("summary", { value: "This is another post." }),
     ]),
   ])]);
-
-  return {
-    xml,
-  };
+  return xml;
 };
 
 Deno.test("Correctly generates Atom feed", async (t) => {
-  const { xml } = fixture();
+  const xml = fixture1();
+  await assertSnapshot(t, xml);
+});
+
+const fixture2 = (): string => {
+  const xml = xmlRoot([c("feed", {
+    xmlns: "http://www.w3.org/2005/Atom",
+    "xml:lang": "ja",
+  }, [
+    c("title", { type: "html", value: "Less: <em> &lt; </em>" }),
+  ])]);
+  return xml;
+};
+
+Deno.test("Correctly generates Atom feed with escaped values", async (t) => {
+  const xml = fixture2();
   await assertSnapshot(t, xml);
 });

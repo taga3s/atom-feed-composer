@@ -26,3 +26,10 @@ snapshot[`Correctly generates Atom feed 1`] = `
   </entry>
 </feed>'
 `;
+
+snapshot[`Correctly generates Atom feed with escaped values 1`] = `
+'<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ja">
+  <title type="html">Less: &lt;em&gt; &amp;lt; &lt;/em&gt;</title>
+</feed>'
+`;
