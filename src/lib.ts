@@ -1,28 +1,80 @@
+interface NodeCommonParams {
+  "xml:lang"?: string;
+  "xml:base"?: string;
+}
+
 interface NodeDefinition {
-  "feed": {
-    xmlns: string;
-    "xml:lang"?: string;
-  };
-  "title": {
+  // Person Constructs (RFC 4287 Section 3.2)
+  "name": {
     value: string;
   };
+  "uri": {
+    value: string;
+  };
+  "email": {
+    value: string;
+  };
+  // Container Elements (RFC 4287 Section 4.1)
+  "feed": {
+    xmlns: string;
+  };
+  "entry": Record<PropertyKey, never>;
+  "content": {
+    value?: string;
+    type?: string;
+    src?: string;
+  };
+  // Metadata Elements (RFC 4287 Section 4.2)
   "author": Record<PropertyKey, never>;
-  "name": {
+  "category": {
+    term: string;
+    scheme?: string;
+    label?: string;
+  };
+  "contributor": Record<PropertyKey, never>;
+  "generator": {
+    value: string;
+    uri?: string;
+    version?: string;
+  };
+  "icon": {
     value: string;
   };
   "id": {
     value: string;
   };
-  "updated": {
-    value: string;
-  };
-  "entry": Record<PropertyKey, never>;
   "link": {
     href: string;
-    type?: string;
     rel?: string;
+    type?: string;
+    hreflang?: string;
+    title?: string;
+    length?: string;
+  };
+  "logo": {
+    value: string;
+  };
+  "published": {
+    value: string;
+  };
+  "rights": {
+    value: string;
+    type?: "text" | "html" | "xhtml";
+  };
+  "source": Record<PropertyKey, never>;
+  "subtitle": {
+    value: string;
+    type?: "text" | "html" | "xhtml";
   };
   "summary": {
+    value: string;
+    type?: "text" | "html" | "xhtml";
+  };
+  "title": {
+    value: string;
+    type?: "text" | "html" | "xhtml";
+  };
+  "updated": {
     value: string;
   };
 }
@@ -46,13 +98,13 @@ type NodeName = keyof NodeDefinition;
 interface AtomNode {
   kind: NodeKind.Atom;
   name: NodeName;
-  params: NodeDefinition[NodeName];
+  params: NodeDefinition[NodeName] & NodeCommonParams;
   children: AtomNode[];
 }
 
 type ComposeNode = <N extends NodeName>(
   name: N,
-  params: NodeDefinition[N],
+  params: NodeDefinition[N] & NodeCommonParams,
   children?: AtomNode[],
 ) => AtomNode;
 
