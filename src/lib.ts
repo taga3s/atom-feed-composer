@@ -27,7 +27,7 @@ interface NodeDefinition {
   "entry": Record<PropertyKey, never>;
   "content": {
     value: string;
-    type?: string; //TODO: should be "text" | "html" | "xhtml" | atomMediaType;
+    type?: string; // may be "text", "html" or "xhtml", otherwise must be a MIME media type
     src?: string;
   };
   // Metadata Elements (RFC 4287 Section 4.2)
@@ -52,7 +52,7 @@ interface NodeDefinition {
   "link": {
     href: string;
     rel?: string;
-    type?: string; //TODO: should be atomMediaType;
+    type?: string; // must be a MIME media type
     hreflang?: string;
     title?: string;
     length?: string;

@@ -14,20 +14,20 @@ if (import.meta.main) {
     c("author", {}, [
       c("name", { value: "john doe" }),
     ]),
-    c("id", { value: "https://example.com/" }),
-    c("updated", { value: new Date().toISOString() }),
+    c("id", { value: "tag:example.com,2026:feed" }),
+    c("updated", { value: "2026-01-15T01:55:15.576Z" }),
     c("entry", {}, [
       c("title", { value: "Hello World" }),
       c("link", { href: "https://example.com/hello-world", rel: "alternate" }),
-      c("id", { value: "https://example.com/hello-world" }),
-      c("updated", { value: new Date().toISOString() }),
+      c("id", { value: "tag:example.com,2026:hello-world" }),
+      c("updated", { value: "2026-01-14T01:55:15.576Z" }),
       c("summary", { value: "This is my first post." }),
     ]),
     c("entry", {}, [
       c("title", { value: "Another Post" }),
       c("link", { href: "https://example.com/another-post", rel: "alternate" }),
-      c("id", { value: "https://example.com/another-post" }),
-      c("updated", { value: new Date().toISOString() }),
+      c("id", { value: "tag:example.com,2026:another-post" }),
+      c("updated", { value: "2026-01-15T01:55:15.576Z" }),
       c("summary", { value: "This is another post." }),
     ]),
   ])]);
