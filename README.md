@@ -53,9 +53,33 @@ if (import.meta.main) {
 
 <details>
 
-<summary>Generated RSS file</summary>
+<summary>Generated Atom feed file</summary>
 
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ja">
+  <title>My Blog</title>
+  <link href="https://example.com/atom.xml" rel="self" type="application/atom+xml" />
+  <author>
+    <name>john doe</name>
+  </author>
+  <id>tag:example.com,2026:feed</id>
+  <updated>2026-01-15T01:55:15.576Z</updated>
+  <entry>
+    <title>Hello World</title>
+    <link href="https://example.com/hello-world" rel="alternate" />
+    <id>tag:example.com,2026:hello-world</id>
+    <updated>2026-01-14T01:55:15.576Z</updated>
+    <summary>This is my first post.</summary>
+  </entry>
+  <entry>
+    <title>Another Post</title>
+    <link href="https://example.com/another-post" rel="alternate" />
+    <id>tag:example.com,2026:another-post</id>
+    <updated>2026-01-15T01:55:15.576Z</updated>
+    <summary>This is another post.</summary>
+  </entry>
+</feed>
 ```
 
 </details>
