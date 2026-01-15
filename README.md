@@ -4,8 +4,10 @@
 
 ## features
 
-- Composes Atom feed XML declaratively (following [RFC 4287](https://datatracker.ietf.org/doc/html/rfc4287))
-- Tag name and attributes can be specified with type-safe, inspired by [hastscript](https://github.com/wooorm/hastscript)
+- Composes Atom feed XML declaratively (following
+  [RFC 4287](https://datatracker.ietf.org/doc/html/rfc4287))
+- Tag name and attributes can be specified with type-safe, inspired by
+  [hastscript](https://github.com/wooorm/hastscript)
 
 ## usage
 

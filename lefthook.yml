@@ -4,7 +4,7 @@ pre-commit:
   parallel: true
   commands:
     format:
-      glob: "*.{ts,json}"
+      glob: "*.{ts,json,md}"
       run: deno fmt --check
     lint:
       glob: "*.{ts,json}"
