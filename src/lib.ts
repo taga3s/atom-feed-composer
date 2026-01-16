@@ -96,6 +96,10 @@ interface DeclarationNode {
 }
 
 type NodeName = keyof NodeDefinition;
+
+/**
+ * This is AtomNode type representing an XML element in an Atom feed.
+ */
 export interface AtomNode {
   kind: NodeKind.Atom;
   name: NodeName;
@@ -109,11 +113,17 @@ type ComposeNode = <N extends NodeName>(
   children?: AtomNode[],
 ) => AtomNode;
 
+/**
+ * Generates an XML string from the AtomNode array input.
+ */
 export const xmlRoot = (nodes: AtomNode[]): string => {
   const indentLevel = 0;
   return stringifyRootNode(nodes, indentLevel);
 };
 
+/**
+ * Composes an AtomNode from a name, parameters, and optional children input.
+ */
 export const compose: ComposeNode = (name, params, children) => ({
   kind: NodeKind.Atom,
   name,
